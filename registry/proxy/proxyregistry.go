@@ -69,7 +69,7 @@ func NewRegistryPullThroughCache(ctx context.Context, registry distribution.Name
 
 		//	blobs := repo.Blobs(ctx)
 
-			// Clear the repository reference and descriptor caches
+		// Clear the repository reference and descriptor caches
 		//	err = blobs.Delete(ctx, r.Digest())
 		//	if err != nil {
 		//		return err
