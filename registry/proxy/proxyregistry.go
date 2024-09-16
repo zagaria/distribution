@@ -39,7 +39,7 @@ func NewRegistryPullThroughCache(ctx context.Context, registry distribution.Name
 		return nil, err
 	}
 
-	v := storage.NewVacuum(ctx, driver)
+	//v := storage.NewVacuum(ctx, driver)
 
 	var s *scheduler.TTLExpirationScheduler
 	var ttl *time.Duration
@@ -55,33 +55,33 @@ func NewRegistryPullThroughCache(ctx context.Context, registry distribution.Name
 
 	if ttl != nil {
 		s = scheduler.New(ctx, driver, "/scheduler-state.json")
-		s.OnBlobExpire(func(ref reference.Reference) error {
-			var r reference.Canonical
-			var ok bool
-			if r, ok = ref.(reference.Canonical); !ok {
-				return fmt.Errorf("unexpected reference type : %T", ref)
-			}
+		//s.OnBlobExpire(func(ref reference.Reference) error {
+		//	var r reference.Canonical
+		//	var ok bool
+		//	if r, ok = ref.(reference.Canonical); !ok {
+		//		return fmt.Errorf("unexpected reference type : %T", ref)
+		//	}
 
-			repo, err := registry.Repository(ctx, r)
-			if err != nil {
-				return err
-			}
+		//	repo, err := registry.Repository(ctx, r)
+		//	if err != nil {
+		//		return err
+		//	}
 
-			blobs := repo.Blobs(ctx)
+		//	blobs := repo.Blobs(ctx)
 
 			// Clear the repository reference and descriptor caches
-			err = blobs.Delete(ctx, r.Digest())
-			if err != nil {
-				return err
-			}
+		//	err = blobs.Delete(ctx, r.Digest())
+		//	if err != nil {
+		//		return err
+		//	}
 
-			err = v.RemoveBlob(r.Digest().String())
-			if err != nil {
-				return err
-			}
+		//	err = v.RemoveBlob(r.Digest().String())
+		//	if err != nil {
+		//		return err
+		//	}
 
-			return nil
-		})
+		//	return nil
+		//})
 
 		s.OnManifestExpire(func(ref reference.Reference) error {
 			var r reference.Canonical
