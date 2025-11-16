@@ -181,8 +181,8 @@ func (ttles *TTLExpirationScheduler) startTimer(entry *schedulerEntry, ttl time.
 		var f expiryFunc
 
 		switch entry.EntryType {
-		case entryTypeBlob:
-			f = ttles.onBlobExpire
+		//case entryTypeBlob:
+		//	f = ttles.onBlobExpire
 		case entryTypeManifest:
 			f = ttles.onManifestExpire
 		default:
